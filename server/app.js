@@ -5,9 +5,9 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 // routes
-const homeRoutes = require('./routes/home.route.js');
+// const homeRoutes = require('./routes/home.route.js');
 
-// config
+// utils
 const config = require('./utils/config.js');
 
 const app = express();
@@ -46,7 +46,7 @@ app.use(
   })
 );
 
-app.use('/', homeRoutes);
+// app.use('/', homeRoutes);
 
 const httpServer = http.createServer(app);
 
@@ -58,6 +58,7 @@ mongoose
   })
   .then(() => {
     console.log('Database Connected');
+
     httpServer.listen(config.portNumber, (err) => {
       if (err) {
         console.log(err.message);

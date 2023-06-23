@@ -5,14 +5,14 @@ const welcomeScreen = (req, res) => {
       success: true,
       message: 'Welcome to vclass',
     });
-    logger.info('Welcome to vclass');
+    console.log('Welcome to vclass');
   } catch (error) {
     res.status(500).json({
       data: null,
       success: false,
       message: error.message,
     });
-    logger.error(error.message);
+    console.log(error.message);
   }
 };
 
