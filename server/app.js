@@ -5,7 +5,8 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 // routes
-// const homeRoutes = require('./routes/home.route.js');
+const homeRoutes = require('./routes/home.route.js');
+const fileRoutes = require('./routes/file.route.js');
 
 // utils
 const config = require('./utils/config.js');
@@ -46,7 +47,8 @@ app.use(
   })
 );
 
-// app.use('/', homeRoutes);
+app.use('/', homeRoutes);
+app.use('/files', fileRoutes);
 
 const httpServer = http.createServer(app);
 
