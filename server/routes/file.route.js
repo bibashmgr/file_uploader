@@ -10,7 +10,7 @@ const {
 } = require('../controllers/file.controller.js');
 
 // helpers
-const { upload } = require('../helpers/upload.js');
+const { upload } = require('../middlewares/upload.js');
 
 const router = express.Router();
 
