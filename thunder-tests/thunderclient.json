@@ -22,7 +22,7 @@
     "method": "POST",
     "sortNum": 10000,
     "created": "2023-06-24T01:17:44.505Z",
-    "modified": "2023-06-26T08:02:16.585Z",
+    "modified": "2023-06-26T11:11:07.821Z",
     "headers": [],
     "params": [],
     "body": {
@@ -32,7 +32,7 @@
       "files": [
         {
           "name": "file",
-          "value": "e:\\Downloads\\file (2).jpg"
+          "value": "e:\\Downloads\\file (1).jpg"
         }
       ]
     },
@@ -57,11 +57,11 @@
     "colId": "2d8be16f-3e36-466c-aea6-5cdcb927a0dd",
     "containerId": "",
     "name": "Get Single File",
-    "url": "http://localhost:9999/files/52f782420727f5b3e4eae7b158981568.jpg",
+    "url": "http://localhost:9999/files/489aa469ef64b2f0d5d3e4eda8e83fcc.jpg",
     "method": "GET",
     "sortNum": 30000,
     "created": "2023-06-25T07:25:00.398Z",
-    "modified": "2023-06-26T08:04:05.145Z",
+    "modified": "2023-06-26T11:12:26.332Z",
     "headers": [],
     "params": [],
     "tests": []
@@ -85,11 +85,25 @@
     "colId": "2d8be16f-3e36-466c-aea6-5cdcb927a0dd",
     "containerId": "",
     "name": "View Single File",
-    "url": "http://localhost:9999/files/52f782420727f5b3e4eae7b158981568.jpg/view",
+    "url": "http://localhost:9999/files/52f782420727f5b3e4eae7b158981568.jpg/download",
     "method": "GET",
     "sortNum": 40000,
     "created": "2023-06-26T08:13:55.602Z",
-    "modified": "2023-06-26T08:14:44.349Z",
+    "modified": "2023-06-26T10:11:10.324Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "5cbd17a9-f2bd-4a28-beb3-2b88ab6a69d1",
+    "colId": "2d8be16f-3e36-466c-aea6-5cdcb927a0dd",
+    "containerId": "",
+    "name": "Delete Single File",
+    "url": "http://localhost:9999/files/50fe2016dbcd4a6929cdc59aaf6b36a3.xlsx/delete",
+    "method": "DELETE",
+    "sortNum": 50000,
+    "created": "2023-06-26T10:10:47.558Z",
+    "modified": "2023-06-26T10:39:28.238Z",
     "headers": [],
     "params": [],
     "tests": []

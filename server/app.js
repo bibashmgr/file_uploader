@@ -11,6 +11,9 @@ const fileRoutes = require('./routes/file.route.js');
 // utils
 const config = require('./utils/config.js');
 
+// helpers
+const GfsBucket = require('./helpers/gridfsManager.js');
+
 const app = express();
 
 app.use(
@@ -60,6 +63,8 @@ mongoose
   })
   .then(() => {
     console.log('Database Connected');
+
+    new GfsBucket();
 
     httpServer.listen(config.portNumber, (err) => {
       if (err) {

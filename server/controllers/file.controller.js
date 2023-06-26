@@ -1,8 +1,9 @@
-const Grid = require('gridfs-stream');
-const mongoose = require('mongoose');
+// helpers
+const GfsBucket = require('../helpers/gridfsManager.js');
 
 const uploadSingleFile = async (req, res) => {
-  res.status(201).json({
+  console.log('File uploaded successfully');
+  return res.status(201).json({
     data: req.files,
     success: true,
     message: 'File uploaded successfully',
@@ -10,22 +11,23 @@ const uploadSingleFile = async (req, res) => {
 };
 
 const getAllFiles = async (req, res) => {
-  let gfs = new Grid(mongoose.connections[0].db, mongoose.mongo);
-  gfs.collection('uploads');
+  let gfsBucket = new GfsBucket();
 
-  await gfs.files
+  await gfsBucket
     .find()
     .toArray()
     .then((files, error) => {
       if (error) {
-        res.status(400).json({
+        console.log(error.message);
+        return res.status(400).json({
           data: null,
           success: false,
           message: error.message,
         });
       }
 
-      res.status(200).json({
+      console.log('Fetch All Files');
+      return res.status(200).json({
         data: files,
         success: true,
         message: 'Fetch All Files',
@@ -34,64 +36,102 @@ const getAllFiles = async (req, res) => {
 };
 
 const getSingleFile = async (req, res) => {
-  let gfs = new Grid(mongoose.connections[0].db, mongoose.mongo);
-  gfs.collection('uploads');
+  let gfsBucket = new GfsBucket();
 
-  await gfs.files
-    .findOne({ filename: req.params.fileName })
-    .then((file, error) => {
+  await gfsBucket
+    .find({ filename: req.params.fileName })
+    .toArray()
+    .then((files, error) => {
       if (error) {
-        res.status(400).json({
+        console.log(error.message);
+        return res.status(400).json({
           data: null,
           success: false,
           message: error.message,
         });
       }
 
-      if (!file) {
-        res.status(404).json({
+      if (!files || files.length === 0) {
+        console.log('Failed to fetch fileInfo');
+        return res.status(404).json({
           data: null,
           success: false,
           message: 'Failed to fetch fileInfo',
         });
-      } else {
-        res.status(200).json({
-          data: file,
-          success: true,
-          message: 'Fetch File Info',
-        });
       }
+
+      console.log('Fetch File Info');
+      return res.status(200).json({
+        data: files[0],
+        success: true,
+        message: 'Fetch File Info',
+      });
     });
 };
 
-const viewSingleFile = async (req, res) => {
-  let gfs = new Grid(mongoose.connections[0].db, mongoose.mongo);
-  gfs.collection('uploads');
+const downloadSingleFile = async (req, res) => {
+  let gfsBucket = new GfsBucket();
 
-  await gfs.files
-    .findOne({ filename: req.params.fileName })
-    .then((file, error) => {
+  await gfsBucket
+    .find({ filename: req.params.fileName })
+    .toArray()
+    .then((files, error) => {
       if (error) {
-        res.status(400).json({
+        console.log(error.message);
+        return res.status(400).json({
           data: null,
           success: false,
           message: error.message,
         });
       }
 
-      if (!file) {
-        res.status(404).json({
+      if ((!files, files.length === 0)) {
+        console.log('Failed to fetch fileInfo');
+        return res.status(404).json({
           data: null,
           success: false,
           message: 'Failed to fetch fileInfo',
         });
-      } else {
-        res.status(200).json({
-          data: file,
-          success: true,
-          message: 'Fetch File Info',
+      }
+
+      console.log('Download file');
+      const readStream = gfsBucket.openDownloadStream(files[0]._id);
+      readStream.pipe(res);
+    });
+};
+
+const deleteSingleFile = async (req, res) => {
+  let gfsBucket = new GfsBucket();
+
+  await gfsBucket
+    .find({ filename: req.params.fileName })
+    .toArray()
+    .then((files, error) => {
+      if (error) {
+        console.log(error.message);
+        return res.status(400).json({
+          data: null,
+          success: false,
+          message: error.message,
         });
       }
+
+      if (!files || files.length === 0) {
+        console.log('Failed to delete file');
+        return res.status(404).json({
+          data: null,
+          success: false,
+          message: 'Failed to delete file',
+        });
+      }
+
+      gfsBucket.delete(files[0]._id);
+      console.log('Delete file');
+      return res.status(200).json({
+        data: null,
+        success: true,
+        message: 'Delete file',
+      });
     });
 };
 
@@ -99,5 +139,6 @@ module.exports = {
   uploadSingleFile,
   getAllFiles,
   getSingleFile,
-  viewSingleFile,
+  downloadSingleFile,
+  deleteSingleFile,
 };
