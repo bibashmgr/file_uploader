@@ -2,25 +2,19 @@ const express = require('express');
 
 // controllers
 const {
-  uploadSingleFile,
+  postSingleFile,
   getAllFiles,
   getSingleFile,
   downloadSingleFile,
   deleteSingleFile,
 } = require('../controllers/file.controller.js');
 
-// middlewares
-const { upload } = require('../middleware/upload.js');
-const { validateFileBody } = require('../middleware/validator.js');
+// helpers
+const { upload } = require('../helpers/upload.js');
 
 const router = express.Router();
 
-router.post(
-  '/upload',
-  validateFileBody,
-  upload.single('file'),
-  uploadSingleFile
-);
+router.post('/upload', upload.single('file'), postSingleFile);
 
 router.get('/', getAllFiles);
 

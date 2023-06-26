@@ -1,10 +1,10 @@
 // helpers
 const GfsBucket = require('../helpers/gridfsManager.js');
 
-const uploadSingleFile = async (req, res) => {
+const postSingleFile = async (req, res) => {
   console.log('File uploaded successfully');
   return res.status(201).json({
-    data: req.files,
+    data: req.file,
     success: true,
     message: 'File uploaded successfully',
   });
@@ -64,7 +64,7 @@ const getSingleFile = async (req, res) => {
       return res.status(200).json({
         data: files[0],
         success: true,
-        message: 'Fetch File Info',
+        message: 'Fetch fileInfo',
       });
     });
 };
@@ -136,7 +136,7 @@ const deleteSingleFile = async (req, res) => {
 };
 
 module.exports = {
-  uploadSingleFile,
+  postSingleFile,
   getAllFiles,
   getSingleFile,
   downloadSingleFile,
