@@ -3,6 +3,7 @@ const express = require('express');
 // controllers
 const {
   postSingleFile,
+  postMutipleFiles,
   getAllFiles,
   getSingleFile,
   downloadSingleFile,
@@ -14,7 +15,9 @@ const { upload } = require('../middlewares/upload.js');
 
 const router = express.Router();
 
-router.post('/upload', upload.single('file'), postSingleFile);
+router.post('/single/upload', upload.single('file'), postSingleFile);
+
+router.post('/mutiple/upload', upload.array('files', 5), postMutipleFiles);
 
 router.get('/', getAllFiles);
 

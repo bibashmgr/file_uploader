@@ -101,6 +101,23 @@ html, body {
   background-color: #1d4ed8;
 }
 
+.upload-files {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.upload-file {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
 .upload-image {
   width: 50px;
   height: 50px;

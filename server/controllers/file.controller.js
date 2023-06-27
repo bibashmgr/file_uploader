@@ -10,6 +10,15 @@ const postSingleFile = async (req, res) => {
   });
 };
 
+const postMutipleFiles = async (req, res) => {
+  console.log('Files uploaded successfully');
+  return res.status(201).json({
+    data: req.files,
+    success: true,
+    message: 'Files uploaded successfully',
+  });
+};
+
 const getAllFiles = async (req, res) => {
   let gfsBucket = new GfsBucket();
 
@@ -137,6 +146,7 @@ const deleteSingleFile = async (req, res) => {
 
 module.exports = {
   postSingleFile,
+  postMutipleFiles,
   getAllFiles,
   getSingleFile,
   downloadSingleFile,
